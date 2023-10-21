@@ -1,0 +1,4 @@
+1)   .js miss kiya import ke time
+2)   req.body empty - 
+        app.use(bodyParser.json({extended:false}))     //raw-json me chalyega 
+        app.use(express.urlencoded({extended:true}))   //x-urlencoded me chalyega
