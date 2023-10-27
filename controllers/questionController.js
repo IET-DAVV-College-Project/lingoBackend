@@ -5,7 +5,7 @@ export const toggleQLike = async (req, res) => {
     let question = await Question.findById(itemId);
     console.log(itemId);
     console.log(userId);
-    console.log("BC");
+    
     if (!question) {
       return res.status(404).json({ error: 'question not found' });
     }
