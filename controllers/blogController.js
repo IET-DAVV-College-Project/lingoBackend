@@ -1,4 +1,33 @@
 import Blog from "../models/blogModel.js";
+export const toggleLike = async (req, res) => {
+  try {
+    const { itemId, userId } = req.body;
+    let blog = await Blog.findById(itemId);
+    console.log(itemId);
+    console.log(userId);
+    if (!blog) {
+      return res.status(404).json({ error: 'Blog not found' });
+    }
+
+    const likedIndex = blog.likesArray.indexOf(userId);
+    if (likedIndex === -1) {
+      // If user has not liked the blog, add the userId to likes array
+      
+      blog.likesArray.push(userId);
+    } else {
+      // If user has already liked the blog, remove the userId from likes array
+      blog.likesArray.splice(likedIndex, 1);
+    }
+    blog.likes=blog.likesArray.length;
+    // Save the updated blog
+    blog = await blog.save();
+    
+    return res.status(200).json({ likes: blog.likesArray.length });
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+};
+
 export const putDislikes=async (req, res) => {
   try {
     const blogId = req.params.id;

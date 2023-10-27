@@ -1,7 +1,8 @@
 import express from "express";
-import {putDislikes,putLikes,createQuestion, deleteQuestion, getQuestionById, getAllQuestions, updateQuestion, getQuestionByEmail, getQuestionByFilter}  from "../controllers/questionController.js";
+import {toggleQLike,putDislikes,putLikes,createQuestion, deleteQuestion, getQuestionById, getAllQuestions, updateQuestion, getQuestionByEmail, getQuestionByFilter}  from "../controllers/questionController.js";
 const router = express.Router();
 
+router.put('/api2/likes/toggle',toggleQLike);
 router.put('/questions/:id/like',putLikes);
 router.put('/questions/:id/dislike',putDislikes);
 router.get('/questions',getAllQuestions);

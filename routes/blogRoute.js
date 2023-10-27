@@ -1,7 +1,8 @@
 import express from "express";
-import {createBlog, deleteBlog, getBlogById, getAllBlogs, updateBlog, getBlogByEmail, getBlogByFilter, putLikes, putDislikes}  from "../controllers/blogController.js";
+import {createBlog, deleteBlog, getBlogById, getAllBlogs, updateBlog, getBlogByEmail, getBlogByFilter, putLikes, putDislikes, toggleLike}  from "../controllers/blogController.js";
 const router = express.Router();
 
+router.put('/api/likes/toggle',toggleLike);
 router.put('/blogs/:id/like',putLikes);
 router.put('/blogs/:id/dislike',putDislikes);
 router.get('/blogs',getAllBlogs);

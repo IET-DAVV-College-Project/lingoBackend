@@ -1,4 +1,34 @@
 import Question from "../models/questionModel.js";
+export const toggleQLike = async (req, res) => {
+  try {
+    const { itemId, userId } = req.body;
+    let question = await Question.findById(itemId);
+    console.log(itemId);
+    console.log(userId);
+    console.log("BC");
+    if (!question) {
+      return res.status(404).json({ error: 'question not found' });
+    }
+    
+    const likedIndex = question.likesArray.indexOf(userId);
+    if (likedIndex === -1) {
+      // If user has not liked the blog, add the userId to likes array
+      
+      question.likesArray.push(userId);
+    } else {
+      // If user has already liked the blog, remove the userId from likes array
+      question.likesArray.splice(likedIndex, 1);
+    }
+    question.likes=question.likesArray.length;
+    // Save the updated blog
+    question = await question.save();
+    
+    return res.status(200).json({ likes: question.likesArray.length });
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+};
+
 export const putDislikes=async (req, res) => {
   try {
     const blogId = req.params.id;
